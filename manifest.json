@@ -1,0 +1,9 @@
+{
+  "manifest_version": 3,
+  "name": "Star Sky New Tab",
+  "version": "1.0.0",
+  "description": "Replaces the New Tab page with an animated starfield: twinkling stars and shooting stars on a black background.",
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  }
+}
