@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Highlight Translate to Thai",
+  "version": "1.0.0",
+  "description": "Highlight text on any page to see an instant Thai translation popup.",
+  "host_permissions": ["https://translate.googleapis.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "all_frames": false
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["fonts/*.woff2"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
