@@ -2,11 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>New Tab</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <canvas id="sky"></canvas>
+  <main class="search-container">
+    <div class="search-widget">
+    <form class="search-form" action="https://www.google.com/search" method="get" role="search" aria-label="Google search">
+      <input id="search-input" type="search" name="q" role="combobox" aria-label="Search Google or enter a website" aria-autocomplete="list" aria-expanded="false" aria-controls="search-options" placeholder="Search Google or enter a website" autocomplete="off" spellcheck="false" required>
+      <button type="submit">Search</button>
+    </form>
+    <section id="search-panel" class="search-panel" aria-label="Search suggestions" hidden>
+      <div class="search-panel-header"><span id="search-heading">Recent searches</span><button id="clear-history" type="button">Clear all</button></div>
+      <ul id="search-options" role="listbox" aria-label="Search suggestions"></ul>
+    </section>
+    <p class="search-hint">กด / หรือ ฝ เพื่อค้นหา · ↑ ↓ เลือก · Esc ปิดรายการ</p>
+    </div>
+  </main>
   <script src="starfield.js"></script>
+  <script type="module" src="search.mjs"></script>
 </body>
 </html>

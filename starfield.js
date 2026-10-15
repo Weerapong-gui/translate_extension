@@ -99,29 +99,45 @@
     });
   }
 
-  let lastTime = 0;
+  let lastTime = null;
+  let animationTime = 0;
+  let frameId = null;
 
   function frame(now) {
-    const dt = lastTime ? (now - lastTime) / 1000 : 0;
+    frameId = null;
+    if (document.hidden) return;
+    const dt = lastTime === null ? 0 : Math.min((now - lastTime) / 1000, 0.05);
     lastTime = now;
+    animationTime += dt * 1000;
 
-    ctx.clearRect(0, 0, width, height);
     ctx.fillStyle = '#000';
     ctx.fillRect(0, 0, width, height);
 
-    drawStars(now);
+    drawStars(animationTime);
     drawShootingStars(dt);
 
-    if (now >= nextShootingStarAt) {
+    if (animationTime >= nextShootingStarAt) {
       spawnShootingStar();
-      scheduleNextShootingStar(now);
+      scheduleNextShootingStar(animationTime);
     }
 
-    requestAnimationFrame(frame);
+    frameId = requestAnimationFrame(frame);
+  }
+
+  function updateVisibility() {
+    if (document.hidden) {
+      if (frameId !== null) cancelAnimationFrame(frameId);
+      frameId = null;
+      lastTime = null;
+    } else if (frameId === null) {
+      lastTime = null;
+      frameId = requestAnimationFrame(frame);
+    }
   }
 
   window.addEventListener('resize', resize);
+  document.addEventListener('visibilitychange', updateVisibility);
   resize();
-  scheduleNextShootingStar(performance.now());
-  requestAnimationFrame(frame);
+  scheduleNextShootingStar(animationTime);
+  updateVisibility();
 })();
